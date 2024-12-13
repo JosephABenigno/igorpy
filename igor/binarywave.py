@@ -26,23 +26,17 @@
 #   valuable information while you are developing IGOR applications.
 
 from __future__ import absolute_import
-import array as _array
-import struct as _struct
-import sys as _sys
-import types as _types
 
 import numpy as _numpy
 
 from . import LOG as _LOG
-from .struct import Structure as _Structure
+from .struct import DynamicField as _DynamicField
 from .struct import DynamicStructure as _DynamicStructure
 from .struct import Field as _Field
-from .struct import DynamicField as _DynamicField
-from .util import assert_null as _assert_null
+from .struct import Structure as _Structure
 from .util import byte_order as _byte_order
-from .util import need_to_reorder_bytes as _need_to_reorder_bytes
 from .util import checksum as _checksum
-
+from .util import need_to_reorder_bytes as _need_to_reorder_bytes
 
 # Numpy doesn't support complex integers by default, see
 #   http://mail.python.org/pipermail/python-dev/2002-April/022408.html
@@ -107,7 +101,7 @@ class NullStaticStringField (StaticStringField):
 # From IgorMath.h
 TYPE_TABLE = {        # (key: integer flag, value: numpy dtype)
     0:None,           # Text wave, not handled in ReadWave.c
-    1:_numpy.complex, # NT_CMPLX, makes number complex.
+    1: complex,  # NT_CMPLX, makes number complex.
     2:_numpy.float32, # NT_FP32, 32 bit fp numbers.
     3:_numpy.complex64,
     4:_numpy.float64, # NT_FP64, 64 bit fp numbers.
